@@ -52,7 +52,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f MLX42/build/libmlx42.a
 	@rm -rf MLX42/build
-	@$(MAKE) -C libft-gojeda > /dev/null
+	@$(MAKE) -C libft-gojeda fclean > /dev/null
 	@echo "🧼 Todo limpio: binarios, Libft y MLX42."
 
 re: fclean all
