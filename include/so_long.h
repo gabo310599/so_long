@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 20:16:41 by gojeda            #+#    #+#             */
-/*   Updated: 2025/05/30 22:08:26 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/02 20:13:06 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include <fcntl.h>
+# include <unistd.h>
 
 
 typedef struct s_game
@@ -25,6 +27,18 @@ typedef struct s_game
 # define TILE	64
 /*****************************************************************************/
 //Mensajes error
-# define ARG_ERROR "ERROR: solo debes pasar un mapa como argumento!."
+# define ARG_ERROR "ERROR\nSolo debes pasar un mapa como argumento!"
+# define OPEN_ERROR "ERRROR\nError al abrir el archivo del mapa"
+# define EMPTY_MAP_ERROR "ERROR\nEl archivo esta vacio"
+# define NO_REC_MAP_ERROR "ERROR\nEl mapa no es rectangular"
+# define BER_ERROR "ERROR\nLa extension del mapa tiene que ser .ber"
 /*****************************************************************************/
+
+/*****************************************************************************/
+//Validate map functions
+int	map_is_ok(int fd);
+int	map_is_rectangle(int fd);
+int	ft_strlen_nnl(char *s);
+/*****************************************************************************/
+
 #endif

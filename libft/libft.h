@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gojeda <gojeda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:04:58 by gojeda            #+#    #+#             */
-/*   Updated: 2025/05/30 21:53:17 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/02 17:12:26 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <unistd.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
+/**************************************************************************/
 
 /*******************************************************************/
 //Funciones obligatorias
@@ -86,5 +90,13 @@ int		ft_count_hex_digits(unsigned int n);
 int		ft_validate_base_errors(char *base, int len);
 void	ft_putnbr_base_unsigned(unsigned int num, char *base);
 int		ft_calculate_base_len(char *base);
+/*******************************************************************/
+//GNL
+char	*get_next_line(int fd);
+size_t	gnl_ft_strlen(const char *str);
+char	*gnl_ft_strdup(const char *s);
+char	*gnl_ft_strchr(const char *s, int c);
+char	*gnl_ft_strjoin(char const *s1, char const *s2);
+char	*gnl_ft_substr(char const *s, unsigned int start, size_t len);
 /*******************************************************************/
 #endif
