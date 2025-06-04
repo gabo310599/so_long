@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 20:16:41 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/02 20:13:06 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/04 16:41:26 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_game
 
 # define TILE	64
 /*****************************************************************************/
-//Mensajes error
+//Error messages
 # define ARG_ERROR "ERROR\nSolo debes pasar un mapa como argumento!"
 # define OPEN_ERROR "ERRROR\nError al abrir el archivo del mapa"
 # define EMPTY_MAP_ERROR "ERROR\nEl archivo esta vacio"
@@ -36,9 +36,12 @@ typedef struct s_game
 
 /*****************************************************************************/
 //Validate map functions
-int	map_is_ok(int fd);
-int	map_is_rectangle(int fd);
-int	ft_strlen_nnl(char *s);
+int		map_is_ok(int fd);
+int		map_is_rectangle(int fd);
+int		ft_strlen_nnl(char *s);
+char	**fill_map(int fd, int rows);
+void	free_map_error(char **map);
+char	*fill_map_line(char *line);
 /*****************************************************************************/
 
 #endif

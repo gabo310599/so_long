@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:28:42 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/02 21:46:11 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/04 16:44:14 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+//str_len that doesnt count de \n
 int	ft_strlen_nnl(char *s)
 {
 	int	i;
@@ -26,6 +27,7 @@ int	ft_strlen_nnl(char *s)
 	return (i);
 }
 
+//Verify if de map given is rectangle
 int	map_is_rectangle(int fd)
 {
 	char	*str;
@@ -52,40 +54,46 @@ int	map_is_rectangle(int fd)
 	return (i);
 }
 
-static int	char_is_valid(char c)
+//Free all the memory for the map in case of error
+void	free_map_error(char **map)
 {
-	return (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P');
+	int	i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);	
 }
 
-char	**map_is_char(int fd, int rows)
+//We fill the map for better handling
+char	**fill_map(int fd, int rows)
 {
 	char	**map;
 	int		cols;
 	char	*line;
 	int		i;
-	int		j;
 
-	map = (char **) malloc(sizeof(char *) *rows);
-	if(!map)
+	map = (char **) malloc(sizeof(char *) * rows);
+	if (!map)
 		return (NULL);
 	line = get_next_line(fd);
 	cols = ft_strlen_nnl(line);
 	i = 0;
-	while (i < cols)
+	while (line)
 	{
-		map[i] = (char *) malloc(sizeof(char) * (cols + 1));
+		map[i] = malloc(sizeof(char) * (cols + 1));
 		if (!map[i])
-			return (free(line), NULL);
-		while (line[j] && line[j] != '\n')
-		{
-			if (!char_is_valid(line[j++]))
-				return (free(line), NULL);
-		}
+			return (free_map_error(map), free(line), NULL);
+		map[i] = fill_map_line(line);
+		if (!map[i])
+			return (free_map_error(map), free(line), NULL);
 		i++;
+		free(line);
 	}
 	return (map);
 }
 
+//We control if the map is valid
 int	map_is_ok(char *map_route)
 {
 	int		fd;
