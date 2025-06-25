@@ -4,6 +4,11 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = src/so_long.c \
+		src/utils/utils.c \
+		src/maps_utils/check_args.c \
+		src/maps_utils/load_map.c \
+		src/maps_utils/read_file_content.c \
+		src/maps_utils/validate_map.c
 
 OBJS = $(SRCS:.c=.o)
 

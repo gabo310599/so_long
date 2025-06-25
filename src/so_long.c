@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:07:56 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/02 16:38:08 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/26 01:30:55 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	
-	(void)	argv;
-	if (argc != 2)
-		ft_printf("%s\n", ARG_ERROR);
-	game.mlx = mlx_init(1050 * TILE, 1050 * TILE, "so_long", true);
-	mlx_loop(game.mlx);
+
+	if (!check_args(argc, argv))
+		return (1);
+	if (!validate_map_file(argv[1]))
+		return (1);
+	if (!load_game_map(&game, argv[1]))
+		return (1);
+	ft_printf("TODO BIEN\n");
 	return (0);
 }

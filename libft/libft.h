@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:04:58 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/02 17:12:26 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/23 19:51:15 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <stdarg.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
 # endif
 /**************************************************************************/
 
-/*******************************************************************/
+/**************************************************************************/
 //Funciones obligatorias
 int		ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_isalnum(int c);
@@ -58,6 +60,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 /*******************************************************************/
 //Estructura para listas
 typedef struct s_list

@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 20:16:41 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/04 16:41:26 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/25 23:44:01 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,66 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdbool.h>
 
+/*****************************************************************************/
+//Game srtuctures
+typedef struct s_vec2
+{
+	int	x;
+	int	y;
+}	t_vec2;
 
 typedef struct s_game
 {
-	mlx_t	*mlx;	
-} t_game;
+	mlx_t		*mlx;
+	mlx_image_t	*img_player;
+	mlx_image_t	*img_wall;
+	mlx_image_t	*img_floor;
+	mlx_image_t	*img_coin;
+	mlx_image_t	*img_exit;
+	char		**map;
+	int			map_width;
+	int			map_heigh;
+	int			coins;
+	int			moves;
+	t_vec2		player_pos;
+}	t_game;
+/*****************************************************************************/
 
 # define TILE	64
 /*****************************************************************************/
 //Error messages
-# define ARG_ERROR "ERROR\nSolo debes pasar un mapa como argumento!"
-# define OPEN_ERROR "ERRROR\nError al abrir el archivo del mapa"
-# define EMPTY_MAP_ERROR "ERROR\nEl archivo esta vacio"
-# define NO_REC_MAP_ERROR "ERROR\nEl mapa no es rectangular"
-# define BER_ERROR "ERROR\nLa extension del mapa tiene que ser .ber"
+# define ARG_ERROR "ERROR\nUsa ./so_long <mapa.ber>\n"
+# define FILE_ERROR "ERRROR\nError al abrir y leer el archivo del mapa\n"
+# define EMPTY_MAP_ERROR "ERROR\nEl archivo esta vacio\n"
+# define NO_REC_MAP_ERROR "ERROR\nEl mapa no es rectangular\n"
+# define BER_ERROR "ERROR\nLa extension del mapa tiene que ser .ber\n"
+# define WALLS_ERROR "ERROR\nEl mapa no está rodeado por paredes\n"
+# define ELEMENTS_ERROR "ERROR\nEl mapa debe tener 1 P, al menos 1 E y 1 C\n"
+# define INV_PATH_ERROR "ERROR\nEl mapa no tiene un camino valido\n"
 /*****************************************************************************/
 
 /*****************************************************************************/
 //Validate map functions
-int		map_is_ok(int fd);
-int		map_is_rectangle(int fd);
-int		ft_strlen_nnl(char *s);
-char	**fill_map(int fd, int rows);
-void	free_map_error(char **map);
-char	*fill_map_line(char *line);
+bool	check_args(int argc, char **argv);
+char	*get_file_contents(const char *filepath);
+bool	validate_map_file(const char *filepath);
+/*****************************************************************************/
+
+/*****************************************************************************/
+//Utils for the proyect
+void	free_split(char **split);
+int		get_map_height(char **map);
+int		get_map_width(char **map);
+void	find_player_in_map(t_game *game);
+void	flood_fill(char **map, int x, int y);
+/*****************************************************************************/
+
+/*****************************************************************************/
+//Load map functions
+bool	load_game_map(t_game *game, const char *filepath);
+char	**copy_map(char **map);
 /*****************************************************************************/
 
 #endif
