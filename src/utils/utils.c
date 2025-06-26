@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:00:32 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/25 23:28:30 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/26 05:58:42 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	find_player_in_map(t_game *game)
 
 void	flood_fill(char **map, int x, int y)
 {
-	if (map[y][x] == '1' || map[y][x] == 'F')
+	if (map[y][x] == '1' || map[y][x] == 'F' || map[y][x] == 'M')
 		return ;
 	map[y][x] = 'F';
 	flood_fill(map, x + 1, y);
@@ -75,5 +75,3 @@ void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x, y + 1);
 	flood_fill(map, x, y - 1);
 }
-
-

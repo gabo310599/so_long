@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 20:16:41 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/25 23:44:01 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/26 13:17:31 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+# define TILE_SIZE	64
 /*****************************************************************************/
 //Game srtuctures
 typedef struct s_vec2
@@ -30,31 +31,34 @@ typedef struct s_vec2
 typedef struct s_game
 {
 	mlx_t		*mlx;
-	mlx_image_t	*img_player;
+	mlx_image_t	*img_player[4];
 	mlx_image_t	*img_wall;
 	mlx_image_t	*img_floor;
 	mlx_image_t	*img_coin;
 	mlx_image_t	*img_exit;
+	mlx_image_t	*img_enemy;
 	char		**map;
 	int			map_width;
 	int			map_heigh;
 	int			coins;
 	int			moves;
+	int			anim_index;
 	t_vec2		player_pos;
 }	t_game;
 /*****************************************************************************/
 
-# define TILE	64
 /*****************************************************************************/
 //Error messages
-# define ARG_ERROR "ERROR\nUsa ./so_long <mapa.ber>\n"
-# define FILE_ERROR "ERRROR\nError al abrir y leer el archivo del mapa\n"
-# define EMPTY_MAP_ERROR "ERROR\nEl archivo esta vacio\n"
-# define NO_REC_MAP_ERROR "ERROR\nEl mapa no es rectangular\n"
-# define BER_ERROR "ERROR\nLa extension del mapa tiene que ser .ber\n"
-# define WALLS_ERROR "ERROR\nEl mapa no está rodeado por paredes\n"
-# define ELEMENTS_ERROR "ERROR\nEl mapa debe tener 1 P, al menos 1 E y 1 C\n"
-# define INV_PATH_ERROR "ERROR\nEl mapa no tiene un camino valido\n"
+# define ARG_ERROR "ERROR\n❌ Usa ./so_long <mapa.ber>\n"
+# define FILE_ERROR "ERRROR\n❌ Error al abrir y leer el archivo del mapa\n"
+# define EMPTY_MAP_ERROR "ERROR\n❌ El archivo esta vacio\n"
+# define NO_REC_MAP_ERROR "ERROR\n❌ El mapa no es rectangular\n"
+# define BER_ERROR "ERROR\n❌ La extension del mapa tiene que ser .ber\n"
+# define WALLS_ERROR "ERROR\n❌ El mapa no está rodeado por paredes\n"
+# define ELEMENTS_ERROR "ERROR\n❌ El mapa debe tener 1 P, al menos 1 E y 1 C\n"
+# define INV_PATH_ERROR "ERROR\n❌ El mapa no tiene un camino valido\n"
+# define INIT_MLX_ERROR "ERROR\n❌ No se pudo iniciar MLX\n"
+# define LOAD_TEXTURE_ERROR "ERROR\n❌ Error cargando textura\n"
 /*****************************************************************************/
 
 /*****************************************************************************/
@@ -74,9 +78,20 @@ void	flood_fill(char **map, int x, int y);
 /*****************************************************************************/
 
 /*****************************************************************************/
-//Load map functions
+//Load and render game functions
 bool	load_game_map(t_game *game, const char *filepath);
 char	**copy_map(char **map);
+bool	init_window(t_game *game);
+bool	load_textures1(t_game *game);
+bool	load_textures2(t_game *game);
+void	render_map(t_game *game);
+void	close_game(void *param);
+/*****************************************************************************/
+
+/*****************************************************************************/
+//Events and hooks functions
+void	handle_input(mlx_key_data_t keydata, void *param);
+void	control_game(t_game *game);
 /*****************************************************************************/
 
 #endif

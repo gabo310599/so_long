@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_map1.c                                    :+:      :+:    :+:   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:28:42 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/25 23:35:55 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/26 03:17:32 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static bool	has_required_elements(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!ft_strchr("10PEC", map[i][j]))
+			if (!ft_strchr("10PECM", map[i][j]))
 				return (false);
 			count_requiered_element(map[i][j], &player, &exit, &coin);
 			j++;
