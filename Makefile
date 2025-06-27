@@ -5,6 +5,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = src/so_long.c \
 		src/utils/utils.c \
+		src/utils/close_game.c \
 		src/maps_utils/check_args.c \
 		src/maps_utils/load_map.c \
 		src/maps_utils/read_file_content.c \
@@ -12,7 +13,7 @@ SRCS = src/so_long.c \
 		src/render/load_textures.c \
 		src/render/render.c \
 		src/events/game_prep.c \
-		src/events/keys.c
+		src/events/movements.c
 
 OBJS = $(SRCS:.c=.o)
 

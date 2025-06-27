@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 20:16:41 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/26 13:17:31 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/27 21:58:00 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # define TILE_SIZE	64
 /*****************************************************************************/
 //Game srtuctures
+typedef struct s_coin
+{
+	int			x;
+	int			y;
+	mlx_instance_t	*instance;
+}	t_coin;
+
 typedef struct s_vec2
 {
 	int	x;
@@ -42,6 +49,7 @@ typedef struct s_game
 	int			map_heigh;
 	int			coins;
 	int			moves;
+	t_coin		*coins_list;
 	int			anim_index;
 	t_vec2		player_pos;
 }	t_game;
@@ -86,6 +94,9 @@ bool	load_textures1(t_game *game);
 bool	load_textures2(t_game *game);
 void	render_map(t_game *game);
 void	close_game(void *param);
+void	init_player(t_game *game);
+void	init_coins(t_game *game);
+void	disable_coin_instance(t_game *game, int x, int y);
 /*****************************************************************************/
 
 /*****************************************************************************/

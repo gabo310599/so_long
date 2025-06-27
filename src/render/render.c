@@ -6,71 +6,78 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 03:50:02 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/26 14:22:43 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/27 21:57:45 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-static void	delete_player_img(t_game *game)
+void	init_player(t_game *game)
 {
-	if (game->img_player[0])
-		mlx_delete_image(game->mlx, game->img_player[0]);
-	if (game->img_player[1])
-		mlx_delete_image(game->mlx, game->img_player[1]);
-	if (game->img_player[2])
-		mlx_delete_image(game->mlx, game->img_player[2]);
-	if (game->img_player[3])
-		mlx_delete_image(game->mlx, game->img_player[3]);
+	int	i;
+	int	px;
+	int	py;
+
+	i = 0;
+	px = game->player_pos.x * TILE_SIZE;
+	py = game->player_pos.y * TILE_SIZE;
+	while (i < 4)
+	{
+		mlx_image_to_window(game->mlx, game->img_player[i], px, py);
+		game->img_player[i]->instances[0].enabled = (i == 0);
+		i++;
+	}
+	game->anim_index = 0;
 }
 
-void	close_game(void *param)
+void	disable_coin_instance(t_game *game, int x, int y)
 {
-	t_game	*game;
+	uint32_t	i;
 
-	game = (t_game *)param;
-	if (!game)
-		return ;
-	delete_player_img(game);
-	if (game->img_wall)
-		mlx_delete_image(game->mlx, game->img_wall);
-	if (game->img_floor)
-		mlx_delete_image(game->mlx, game->img_floor);
-	if (game->img_coin)
-		mlx_delete_image(game->mlx, game->img_coin);
-	if (game->img_exit)
-		mlx_delete_image(game->mlx, game->img_exit);
-	if (game->img_enemy)
-		mlx_delete_image(game->mlx, game->img_enemy);
-	free_split(game->map);
-	if (game->mlx)
-		mlx_terminate(game->mlx);
-	ft_printf("👋 Juego cerrado correctamente.\n");
-	exit(0);
+	i = 0;
+	while (i < game->img_coin->count)
+	{
+		if (game->img_coin->instances[i].x == x * TILE_SIZE
+			&& game->img_coin->instances[i].y == y * TILE_SIZE)
+		{
+			game->img_coin->instances[i].enabled = false;
+			break ;
+		}
+		i++;
+	}
+}
+
+void	init_coins(t_game *game)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	while (y < game->map_heigh)
+	{
+		x = 0;
+		while (x < game->map_width)
+		{
+			if (game->map[y][x] == 'C')
+				mlx_image_to_window(game->mlx, game->img_coin,
+					x * TILE_SIZE, y * TILE_SIZE);
+			x++;
+		}
+		y++;
+	}
 }
 
 static void	render_elements(t_game *game, char tile, int px, int py)
 {
-	int	i;
-
 	if (tile == '1')
 		mlx_image_to_window(game->mlx, game->img_wall, px, py);
 	else if (tile == 'P')
 	{
-		i = 0;
-		while (i < 4)
-		{
-			mlx_image_to_window(game->mlx, game->img_player[i], px, py);
-			game->img_player[i]->instances[0].enabled = (i == 0);
-			mlx_set_instance_depth(&game->img_player[i]->instances[0], 1);
-			i++;
-		}
+		mlx_image_to_window(game->mlx, game->img_floor, px, py);
 		game->player_pos.x = px / TILE_SIZE;
 		game->player_pos.y = py / TILE_SIZE;
 		game->anim_index = 0;
 	}
-	else if (tile == 'C')
-		mlx_image_to_window(game->mlx, game->img_coin, px, py);
 	else if (tile == 'E')
 		mlx_image_to_window(game->mlx, game->img_exit, px, py);
 	else if (tile == 'M')

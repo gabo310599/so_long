@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 10:32:12 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/26 13:16:59 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/06/27 21:39:16 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	control_game(t_game *game)
 {
 	render_map(game);
-	mlx_close_hook(game->mlx, close_game, &game);
+	init_player(game);
+	init_coins(game);
+	mlx_close_hook(game->mlx, close_game, game);
 	mlx_key_hook(game->mlx, handle_input, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
