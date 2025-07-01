@@ -5,6 +5,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = src/so_long.c \
 		src/utils/utils.c \
+		src/utils/utils1.c \
 		src/utils/close_game.c \
 		src/maps_utils/check_args.c \
 		src/maps_utils/load_map.c \

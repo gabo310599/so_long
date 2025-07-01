@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 21:21:28 by gojeda            #+#    #+#             */
-/*   Updated: 2025/07/01 17:55:33 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/07/01 21:53:36 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ void	close_game(void *param)
 		mlx_delete_image(game->mlx, game->img_exit);
 	if (game->img_enemy)
 		mlx_delete_image(game->mlx, game->img_enemy);
+	if (game->move_text)
+		mlx_delete_image(game->mlx, game->move_text);
 	free_split(game->map);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
+	ft_memset(game, 0, sizeof(t_game));
 	ft_printf("👋 Juego cerrado correctamente.\n");
 	exit(0);
 }
-

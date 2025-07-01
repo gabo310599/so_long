@@ -6,11 +6,17 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 10:29:16 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/27 22:18:28 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/07/01 20:04:16 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
+
+static void	print_movements(t_game *game)
+{
+	ft_printf("📦 Movimientos: %d\n", game->moves);
+	update_move_text(game);
+}
 
 static void	update_player_position(t_game *game, int new_x, int new_y)
 {
@@ -61,7 +67,7 @@ static void	move_player(t_game *game, int dx, int dy)
 	game->anim_index = (game->anim_index + 1) % 4;
 	update_player_position(game, new_x, new_y);
 	game->moves++;
-	ft_printf("📦 Movimientos: %d\n", game->moves);
+	print_movements(game);
 }
 
 void	handle_input(mlx_key_data_t keydata, void *param)

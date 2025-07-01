@@ -6,12 +6,13 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 10:32:12 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/27 21:39:16 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/07/01 21:51:33 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
+//Investigar mlx_hook y ver cambio a la estructura con referencia a la ventana
 void	control_game(t_game *game)
 {
 	render_map(game);

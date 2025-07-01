@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 03:50:02 by gojeda            #+#    #+#             */
-/*   Updated: 2025/06/27 21:57:45 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/07/01 20:00:56 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ static void	render_elements(t_game *game, char tile, int px, int py)
 
 void	render_map(t_game *game)
 {
-	int	y;
-	int	x;
-	int	px;
-	int	py;
+	int		y;
+	int		x;
+	int		px;
+	int		py;
 
 	px = 0;
 	py = 0;
@@ -108,4 +108,5 @@ void	render_map(t_game *game)
 		}
 		y++;
 	}
+	update_move_text(game);
 }
