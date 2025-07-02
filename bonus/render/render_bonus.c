@@ -6,7 +6,7 @@
 /*   By: gojeda <gojeda@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 03:50:02 by gojeda            #+#    #+#             */
-/*   Updated: 2025/07/02 17:41:24 by gojeda           ###   ########.fr       */
+/*   Updated: 2025/07/01 20:00:56 by gojeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void	init_player(t_game *game)
 {
+	int	i;
 	int	px;
 	int	py;
 
+	i = 0;
 	px = game->player_pos.x * TILE_SIZE;
 	py = game->player_pos.y * TILE_SIZE;
-	mlx_image_to_window(game->mlx, game->img_player[0], px, py);
-	game->img_player[0]->instances[0].enabled = 1;
+	while (i < 4)
+	{
+		mlx_image_to_window(game->mlx, game->img_player[i], px, py);
+		game->img_player[i]->instances[0].enabled = (i == 0);
+		i++;
+	}
 	game->anim_index = 0;
 }
 
@@ -74,6 +80,8 @@ static void	render_elements(t_game *game, char tile, int px, int py)
 	}
 	else if (tile == 'E')
 		mlx_image_to_window(game->mlx, game->img_exit, px, py);
+	else if (tile == 'M')
+		mlx_image_to_window(game->mlx, game->img_enemy, px, py);
 }
 
 void	render_map(t_game *game)
@@ -100,4 +108,5 @@ void	render_map(t_game *game)
 		}
 		y++;
 	}
+	update_move_text(game);
 }
